@@ -1,0 +1,33 @@
+name: Run Python App
+
+# This workflow runs on every push to the repository
+on:
+  push:
+    branches:
+      - main  # You can change 'main' to any branch you want to trigger the action
+
+jobs:
+  run:
+    runs-on: ubuntu-latest  # Use a Linux-based runner (you can change this to other OS like 'windows-latest' or 'macos-latest')
+
+    steps:
+      # Checkout the repository to the runner
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8  # Specify the Python version (you can change it to your app's version)
+
+      # Install dependencies (if you have any)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Make sure you have a requirements.txt file with your app's dependencies
+
+      # Run the Python app
+      - name: Run app.py
+        run: |
+          python app.py
